@@ -52,7 +52,7 @@ Layer 3  meta        AGENTS.md + index.md + log.md (schema, map, history)
 
 | Layer | What lives here | Rule |
 |---|---|---|
-| `raw/` | Your captures (required) + emails and external sources (both opt-in) | **Two sub-layers**: root = uncategorized buffer, subfolders = categorized. Only `raw/captures/` is created by default. See § raw/ two-layer model below. |
+| `raw/` | Your captures + external third-party sources (both required) + emails (opt-in) | **Two sub-layers**: root = uncategorized buffer, subfolders = categorized. `raw/captures/` and `raw/external/` are created by default; `raw/emails/` is opt-in. See § raw/ two-layer model below. |
 | `wiki/` | Tasks, events, projects, areas, daily notes, summaries, entities, concepts | Edit freely. Use wikilinks. Follow Method B for status. |
 | meta | `AGENTS.md` (this file), `index.md` (map), `log.md` (history) | `index.md` = wikilinks-only, never describe. `log.md` = append-only. |
 
@@ -72,18 +72,17 @@ The `raw/` layer itself splits into two:
 | Subfolder | Holds | Naming convention | Required? |
 |---|---|---|---|
 | `raw/captures/` | Your own time-stamped records: voice notes, screenshots, reflections, meeting minutes | `YYYY-MM-DD-<slug>.md` | ✅ Required |
+| `raw/external/` | Third-party sources ingested for reading: web clips, book chapters, lecture handouts, PDFs → markdown | `<source-slug>.md` (often includes source identifier, e.g. `fluid-mech-2026-09-30-handout.md`) | ✅ Required |
 | `raw/emails/` | Email correspondence, both inbound and outbound (including AI-drafted replies) | `YYYY-MM-DD-<subject-or-sender>.md` | ⭕ Opt-in |
-| `raw/external/` | Third-party sources ingested for reading: web clips, book chapters, lecture handouts, PDFs → markdown | `<source-slug>.md` (often includes source identifier, e.g. `fluid-mech-2026-09-30-handout.md`) | ⭕ Opt-in |
 
-Only `raw/captures/` is created by default. Enable `raw/emails/` and/or `raw/external/` if your workflow needs them:
+`raw/captures/` and `raw/external/` are created by default. Enable `raw/emails/` only if your workflow needs it:
 
 ```bash
 # Enable email flow
 mkdir -p raw/emails && touch raw/emails/.gitkeep
-
-# Enable external source ingestion
-mkdir -p raw/external && touch raw/external/.gitkeep
 ```
+
+To disable an opt-in folder: just delete it. No migration needed — the workflows reference it only when it exists.
 
 To disable any opt-in folder: just delete it. No migration needed — the workflows reference these folders only when they exist.
 
@@ -97,10 +96,10 @@ To disable any opt-in folder: just delete it. No migration needed — the workfl
 
 - ❌ Never leave files in `raw/` root indefinitely — backlog kills the buffer
 - ❌ Never edit a raw/ file once written (append a new capture instead)
-- ❌ Don't reference `raw/emails/` or `raw/external/` paths if you didn't create them
+- ❌ Don't reference `raw/emails/` path unless you created it (it's opt-in)
 - ✅ When unsure which subfolder fits, leave in root and decide next triage
 - ✅ Filenames in root can be informal — rename when triaged
-- ✅ Opt-in folders are truly optional — delete if you don't need them
+- ✅ `raw/emails/` is truly optional — delete if you don't need it
 
 ---
 
@@ -130,10 +129,10 @@ To disable any opt-in folder: just delete it. No migration needed — the workfl
 New stuff always goes to `raw/` first (root or subfolder, see § raw/ two-layer model).
 
 - Voice-to-text notes, quick thoughts, screenshots → `raw/` root (triage later) or straight to `raw/captures/`
+- Web clipper outputs, book/PDF highlights, lecture notes → `raw/external/`
 - AI-written email reply drafts → `raw/emails/` *(if that opt-in folder exists)*
-- Web clipper outputs, book/PDF highlights → `raw/external/` *(if that opt-in folder exists)*
 
-**Rule: capture without classification. Triage later.** If a target subfolder doesn't exist, leave the file in `raw/` root until you decide.
+**Rule: capture without classification. Triage later.** If a target subfolder doesn't exist (e.g. `raw/emails/` not enabled), leave the file in `raw/` root until you decide.
 
 #### 2. Triage
 
@@ -223,8 +222,8 @@ If you only want to capture sources without writing wiki pages: just write to `r
 | KB lessons | prefix `LESSON: ` in title | `LESSON: wikilink path-vs-basename` |
 | raw/ root files (informal) | descriptive slug | `meeting-thoughts.md` |
 | `raw/captures/` | `YYYY-MM-DD-<slug>.md` | `2026-10-02-think-pomodoro.md` |
+| `raw/external/` | `<source-slug>.md` (date optional) | `fluid-mech-2026-09-30-handout.md` |
 | `raw/emails/` *(opt-in)* | `YYYY-MM-DD-<subject-or-sender>.md` | `2026-10-02-reply-to-bill.md` |
-| `raw/external/` *(opt-in)* | `<source-slug>.md` (date optional) | `fluid-mech-2026-09-30-handout.md` |
 
 ---
 

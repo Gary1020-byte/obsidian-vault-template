@@ -131,7 +131,7 @@ This template ships with **Personal-OS mode**. To repurpose for **knowledge-base
    ```
 2. **Update `AGENTS.md`** with the 5-page-type ingest workflow (read sources → write entities/concepts/summaries + log entry + capture trace)
 3. **Update `templates/`** — replace `task.md` / `event.md` / `recurring-event.md` with `summary.md` / `entity.md` / `concept.md` / `overview.md` / `comparison.md` / `lesson.md`
-4. **Update `raw/` semantics** — `raw/captures/` is required (your own time-stamped notes); `raw/emails/` and `raw/external/` are opt-in (create only if your KB workflow needs them). For ingested sources, place in `raw/external/<source>.md`.
+4. **Update `raw/` semantics** — `raw/captures/` and `raw/external/` are required by default; `raw/emails/` is opt-in (create only if your workflow needs email handling).
 5. **Add `type:` field** to frontmatter: `entity | concept | overview | comparison | summary | lesson`
 
 For a concrete reference implementation of knowledge-base mode, see **<companion vault>** (the section above).
