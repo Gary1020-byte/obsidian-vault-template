@@ -1,0 +1,31 @@
+{
+  "settings": {
+    "enableDataviewJs": true,
+    "enableInlineDataview": true,
+    "enableInlineDataviewJS": true,
+    "enableBlockDataviewJS": true,
+    "showInlineParseError": true,
+    "showResultCount": true,
+    "showResultTypes": false,
+    "warnOnAsyncResult": true,
+    "renderNullAsEmpty": false,
+    "tableWrapEnabled": true,
+    "tableWrapColumnThreshold": 30,
+    "taskCompletionText": "x",
+    "taskCompletionTextLatex": "\\times",
+    "recursiveSubTasks": true,
+    "recursiveSubTasksCompletion": "Complete",
+    "journalFrequency": "monthly",
+    "journalDateFormat": "YYYY-MM",
+    "journalDatePlannerFormat": "YYYY-MM-DD",
+    "journalLinkEnabled": false,
+    "inlineQueryPrefix": "= ",
+    "inlineJsQueryPrefix": "$= ",
+    "blockLanguageMaps": {
+      "javascript": [],
+      "js": []
+    },
+    "defaultDateFormat": "YYYY-MM-DD",
+    "maxRecursiveRenderDepth": 4
+  }
+}

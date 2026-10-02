@@ -1,0 +1,7 @@
+{
+  "alwaysUpdateFrontmatter": true,
+  "dailyNotesFolder": "wiki/daily",
+  "dailyNoteDateFormat": "YYYY-MM-DD",
+  "dailyNoteTemplate": "templates/daily.md",
+  "newFileLocation": "current"
+}

@@ -1,0 +1,14 @@
+{
+  "templatesFolder": "templates",
+  "enableFolderTemplates": false,
+  "triggerOnNewFile": true,
+  "alwaysUpdateFrontmatter": true,
+  "syntaxHighlightingEnabled": true,
+  "useFullWidthIfHidden": false,
+  "enableScriptExecution": true,
+  "showAddFileCommand": true,
+  "startup_scripts": [],
+  "user_scripts_folder": "templates",
+  "folderTemplates": [],
+  "system_command_handlers": []
+}
