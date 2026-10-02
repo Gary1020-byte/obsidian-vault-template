@@ -4,7 +4,7 @@
 
 Reusable Obsidian vault skeleton with a 3-layer architecture. Ships in **Personal-OS mode** (tasks, calendar, projects, areas, daily) but the same skeleton adapts to **knowledge-base mode** (entities, concepts, comparisons, summaries, overviews, lessons) — the [Karpathy LLM Wiki pattern](https://gist.github.com/karpathy/442a6bf555914893e9891c11519de94f).
 
-- **`raw/`** — immutable inbox, two sub-layers: **root = uncategorized drop zone** (trailing target); `<sub>/` = three categorized folders (captures / emails / external). Never edit after writing.
+- **`raw/`** — immutable inbox, two sub-layers: root = uncategorized drop zone; subfolders = categorized. **Only `captures/` is created by default**; `emails/` and `external/` are opt-in (see Folder Structure below). Never edit after writing.
 - **`wiki/`** — linked data network (the work surface; edited and re-edited)
 - **`meta`** — `AGENTS.md` + `index.md` + `log.md` (conventions + map + history)
 
@@ -53,8 +53,8 @@ On first launch, Obsidian will download plugin code from its registry (only `dat
 ├── raw/                 ← immutable, two sub-layers
 │   ├── <root>           ← Layer 1: uncategorized drop zone (triage target)
 │   ├── captures/        ← Layer 2a: your time-stamped records (YYYY-MM-DD-*.md)
-│   ├── emails/          ← Layer 2b: email (inbound + outbound, including AI drafts)
-│   └── external/        ← Layer 2c: third-party sources (web clips, papers, lecture notes)
+│   ├── emails/          ← Layer 2b: email (inbound + outbound, including AI drafts) — OPT-IN
+│   └── external/        ← Layer 2c: third-party sources (web clips, papers, lecture notes) — OPT-IN
 └── wiki/                ← editable, source of work
     ├── tasks/           ← task state machine (Method B: location = status)
     │   ├── inbox/       ← untriaged captures from raw/captures/
@@ -131,7 +131,7 @@ This template ships with **Personal-OS mode**. To repurpose for **knowledge-base
    ```
 2. **Update `AGENTS.md`** with the 5-page-type ingest workflow (read sources → write entities/concepts/summaries + log entry + capture trace)
 3. **Update `templates/`** — replace `task.md` / `event.md` / `recurring-event.md` with `summary.md` / `entity.md` / `concept.md` / `overview.md` / `comparison.md` / `lesson.md`
-4. **Update `raw/` semantics** — captures become the destination for `source-conversion.md` outputs (course transcripts, book notes, paper drafts)
+4. **Update `raw/` semantics** — `raw/captures/` is required (your own time-stamped notes); `raw/emails/` and `raw/external/` are opt-in (create only if your KB workflow needs them). For ingested sources, place in `raw/external/<source>.md`.
 5. **Add `type:` field** to frontmatter: `entity | concept | overview | comparison | summary | lesson`
 
 For a concrete reference implementation of knowledge-base mode, see **<companion vault>** (the section above).
