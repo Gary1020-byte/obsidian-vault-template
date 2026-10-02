@@ -4,7 +4,7 @@
 
 Reusable Obsidian notes skeleton with a 3-layer architecture. Ships in **the shipped mode** (tasks, calendar, projects, areas, daily) but the same skeleton adapts to **knowledge-base mode** (entities, concepts, comparisons, summaries, overviews, lessons) — the [Karpathy LLM Wiki pattern](https://gist.github.com/karpathy/442a6bf555914893e9891c11519de94f).
 
-- **`raw/`** — immutable captures (never edit directly; ingest sources land here first)
+- **`raw/`** — immutable inbox, two sub-layers: **root = uncategorized drop zone** (trailing target); `<sub>/` = three categorized folders (captures / emails / external). Never edit after writing.
 - **`wiki/`** — linked data network (the work surface; edited and re-edited)
 - **`meta`** — `AGENTS.md` + `index.md` + `log.md` (conventions + map + history)
 
@@ -50,11 +50,11 @@ On first launch, Obsidian will download plugin code from its registry (only `dat
 │   ├── project.md
 │   ├── recurring-event.md
 │   └── task.md
-├── raw/                 ← immutable
-│   ├── captures/        ← date-prefixed source captures
-│   ├── emails/
-│   ├── drafts/
-│   └── external/        ← PDFs, images, binaries linked from wiki
+├── raw/                 ← immutable, two sub-layers
+│   ├── <root>           ← Layer 1: uncategorized drop zone (triage target)
+│   ├── captures/        ← Layer 2a: your time-stamped records (YYYY-MM-DD-*.md)
+│   ├── emails/          ← Layer 2b: email (inbound + outbound, including AI drafts)
+│   └── external/        ← Layer 2c: third-party sources (web clips, papers, lecture notes)
 └── wiki/                ← editable, source of work
     ├── inbox/           ← untriaged captures from raw/captures/
     ├── next/            ← active tasks
