@@ -1,158 +1,363 @@
-<!-- TEMPLATE-NOTE-START -->
+<!--
+📦 TEMPLATE-NOTE
+This file is the operations manual for the vault-template repo. It supports
+two main use modes (Personal-OS and Knowledge-base) plus a hybrid variant.
 
-# 📦 This is a TEMPLATE
+When forking this repo for a new vault:
+1. Decide your mode (Personal-OS / Knowledge-base / Hybrid) — see top section
+2. Rename the wiki/ subfolders to match your mode
+3. Replace template names with your vault name in any prose
+4. Update the "What YOU provide" section to match what data you will keep
+5. Delete this banner block once adapted
+-->
 
-This `AGENTS.md` is the canonical operations manual for **Personal-OS**, the vault it was forked from. When you use this repo as a starting point for a new vault:
-
-- **Replace** any mention of "Personal-OS" or specific vault paths with your vault name
-- **Keep** the general principles: three-layer model, Method B rules, commit convention, plugin workflow
-- **Adapt** the folder layout section to match your mode (Personal-OS mode vs Knowledge-base mode)
-- **Delete** this banner once you've adapted the file
-
-<!-- TEMPLATE-NOTE-END -->---
+---
 date: 2026-10-02
 type: meta
+tags: [schema, operations-manual]
+status: active
 ---
 
-# AGENTS.md — Personal OS 代理準則
+# AGENTS.md — Operations Manual
 
-## 這個 Vault 是什麼
+> **TL;DR** — Drop uncategorized stuff in `raw/` root, triage to `raw/<sub>/`. Work lives in `wiki/`. Folder location = status (Method B). Commit format: `YYYY-MM-DD <type> | <description>`.
 
-個人作業系統 vault。涵蓋**任務管理（GTD 簡化）、行事曆、Project 追蹤、Areas 持續責任、Email 整合、每日 reflection**。
+---
 
-> 書摘、學習筆記、topic wiki 不在本 vault 範圍，統一歸 <companion vault> vault。
+## Pick your mode (do this first)
 
-設計借鑒 <companion vault> 的「不可變 inbox + wikilink 串連」模式，加上 GTD 與 PARA 兩個生產力方法論。
+This template ships with Personal-OS scaffolding but the same skeleton supports **three modes**. Choose based on what your vault is for:
 
-## 三層架構
+| Mode | Best for | `wiki/` subfolders | Example vault |
+|---|---|---|---|
+| **A. Personal-OS** (productivity) | GTD, calendar, areas, projects, daily notes | `tasks/{inbox,next,waiting,someday,done}/`, `calendar/{daily,recurring,synced}/`, `projects/`, `areas/`, `daily/`, `archives/{projects,tasks}/` | This repo's default |
+| **B. Knowledge-base** (LLM Wiki style) | Course notes, papers, book summaries, concepts | `entities/`, `concepts/`, `overviews/`, `comparisons/`, `summaries/`, `lessons/` | <companion vault> (see README "Reference" section) |
+| **C. Hybrid** | Both — personal vault + linked knowledge base | **A — plus** — symlink or git submodule to a sibling knowledge-base vault | Common: Personal-OS vault + <companion vault> vault side-by-side |
+
+**Choose now and continue to the matching Workflow section below:**
+
+- Mode A → [§ Workflow — Personal-OS](#workflow--personal-os-mode)
+- Mode B → [§ Workflow — Knowledge-base](#workflow--knowledge-base-mode)
+- Mode C → run two sibling repos (this template forked twice)
+
+---
+
+## The 3-layer model (every mode)
 
 ```
-Layer 1 ─ raw/                  不可變 inbox（所有東西先丟這）
-Layer 2 ─ wiki/                tasks/ calendar/ projects/ areas/ daily/ archives/ 互相 wikilink
-Layer 3 ─ meta                  index.md + log.md + AGENTS.md
+Layer 1  raw/        immutable inbox. Agents read; never edit.
+Layer 2  wiki/       work surface. Edit, evolve, wikilink.
+Layer 3  meta        AGENTS.md + index.md + log.md (schema, map, history)
 ```
 
-### Layer 1 — raw/（不可變 inbox）
-- 一旦寫入就不修改
-- 三個子資料夾：`captures/`、`emails/drafts/`、`external/`
-- 任何東西先 capture 再 triage，絕不繞過
-
-### Layer 2 — wiki/（互相串連的資料網絡）
-| 資料夾 | 角色 | 方法論 |
+| Layer | What lives here | Rule |
 |---|---|---|
-| [[wiki/tasks/README\|tasks/]] | 任務管理 | GTD 簡化 |
-| [[wiki/calendar/README\|calendar/]] | 行事曆 | 三種檔案類型 schema |
-| [[wiki/projects/README\|projects/]] | 有 deadline 的專案 | PARA |
-| [[wiki/areas/README\|areas/]] | 無 deadline 的持續責任 | PARA |
-| [[wiki/daily/README\|daily/]] | 每日 reflection | 1 日 1 檔 |
-| [[wiki/archives/README\|archives/]] | 封存 | 不進 daily brief |
+| `raw/` | Captures, emails, source files (PDFs, lecture notes, transcripts) | **Two sub-layers**: root = uncategorized buffer, subfolders = categorized. See § raw/ two-layer model below. |
+| `wiki/` | Tasks, events, projects, areas, daily notes, summaries, entities, concepts | Edit freely. Use wikilinks. Follow Method B for status. |
+| meta | `AGENTS.md` (this file), `index.md` (map), `log.md` (history) | `index.md` = wikilinks-only, never describe. `log.md` = append-only. |
 
-互相之間用 [[wikilinks]] 串：
-- task 透過 frontmatter `project:` 欄位連到 [[templates/project]]
-- task 透過 frontmatter `area:` 欄位連到 [[templates/area]]
-- daily note 用 Dataview 自動拉 task / calendar / project
-- dashboard 集中呈現
+---
 
-### Layer 3 — meta
-- [[index\|index.md]] — vault 入口
-- [[log\|log.md]] — append-only 變更記錄
-- AGENTS.md（本檔）— 代理 / 協作準則
+## raw/ two-layer model
 
-## Tooling 資料夾
+The `raw/` layer itself splits into two:
 
-| 資料夾 | 用途 |
+| Sub-layer | Location | Purpose |
+|---|---|---|
+| **Layer 1 — uncategorized** | `raw/` root (e.g. `raw/2026-10-02-meeting-thought.md`) | Quick-drop buffer. No `type:` required. Triage target. |
+| **Layer 2 — categorized** | `raw/<sub>/` subfolders | Post-triage home. Organized by source type. |
+
+### The three categorized subfolders
+
+| Subfolder | Holds | Naming convention |
+|---|---|---|
+| `raw/captures/` | Your own time-stamped records: voice notes, screenshots, reflections, meeting minutes | `YYYY-MM-DD-<slug>.md` |
+| `raw/external/` | Third-party sources ingested for reading: web clips, book chapters, lecture handouts, PDFs → markdown | `<source-slug>.md` (often includes source identifier, e.g. `fluid-mech-2026-09-30-handout.md`) |
+| `raw/emails/` | Email correspondence, both inbound and outbound (including AI-drafted replies) | `YYYY-MM-DD-<subject-or-sender>.md` |
+
+### Triage flow
+
+1. **Drop** anything into `raw/` root first — no classification needed (e.g. `raw/2026-10-02-something.md`)
+2. **Triage** daily (or as needed): move the file into the matching subfolder and rename to convention if needed
+3. **Add provenance**: when the file is consumed into a wiki page, link via frontmatter `source: raw/...`
+
+### Rules
+
+- ❌ Never leave files in `raw/` root indefinitely — backlog kills the buffer
+- ❌ Never edit a raw/ file once written (append a new capture instead)
+- ✅ When unsure which subfolder fits, leave in root and decide next triage
+- ✅ Filenames in root can be informal — rename when triaged
+
+---
+
+## Method B: location = status
+
+**No `status:` field.** Folder placement encodes state.
+
+| Concept | "Active" location | "Done" location |
+|---|---|---|
+| Task (active work) | `wiki/tasks/next/` | `wiki/tasks/done/` |
+| Task (blocked) | `wiki/tasks/waiting/` | `wiki/tasks/done/` (with `resolved:` date) |
+| Task (untriaged) | `raw/captures/YYYY-MM-DD-*.md` | `wiki/tasks/inbox/` (with `triaged:` + `triage_target:`) |
+| Task (maybe later) | `wiki/tasks/someday/` | `wiki/tasks/done/` or `archives/tasks/` |
+| Calendar event (one-time) | `wiki/calendar/synced/` | end date `===` passes |
+| Calendar event (recurring instance) | `wiki/calendar/daily/` | end date passes |
+| Daily note | `wiki/daily/YYYY-MM-DD.md` | today's file exists |
+| **KB — Source** | `raw/<source>.md` (or root before triage) | stays there forever |
+| **KB — Summary** | `wiki/summaries/<source>.md` | superseded → `wiki/archives/summaries/` |
+| **KB — Lesson** | `wiki/lessons/<topic>.md` | rarely archive; superseded by newer lesson |
+
+---
+
+## Workflow — Personal-OS mode
+
+#### 1. Capture
+
+New stuff always goes to `raw/` first (root or subfolder, see § raw/ two-layer model).
+
+- Voice-to-text notes, quick thoughts, screenshots → `raw/` root (triage later) or straight to `raw/captures/`
+- AI-written email reply drafts → `raw/emails/`
+- Web clipper outputs, book/PDF highlights → `raw/external/`
+
+**Rule: capture without classification. Triage later.**
+
+#### 2. Triage
+
+Daily (or as needed): move things from `raw/` root to their right home.
+
+- Is a task? → `wiki/tasks/inbox/` (or straight to `next/` / `waiting/` / `someday/`)
+- Is a calendar event? → `wiki/calendar/synced/` (one-time) or `wiki/calendar/recurring/` (recurring)
+- Is a project? → `wiki/projects/<project-slug>/`
+- Is an ongoing responsibility? → append to `wiki/areas/<area>.md`
+- Is study / book note / topic wiki? → **out of scope, push to <companion vault> vault**
+
+When triaging, add `source: raw/captures/<filename>` to frontmatter for provenance.
+
+#### 3. Daily brief
+
+Open `wiki/daily/YYYY-MM-DD.md` each morning. Templater + Dataview auto-pull:
+
+- Today's tasks (from `wiki/tasks/next/`)
+- Overdue tasks
+- This-week deadlines
+- Active project names
+- Today's calendar events
+
+#### 4. Review cadence
+
+| Frequency | Action |
 |---|---|
-| [[dashboard/README\|dashboard/]] | Obsidian 工作台單頁 |
-| [[templates/]] | Templater 模板（task / project / area / daily / capture / event / recurring-event） |
-| [[scripts/]] | 自動化腳本（future） |
+| Daily | Clear `tasks/inbox/`, write daily reflection |
+| Weekly | Review `tasks/next/` + `tasks/waiting/`, verify `calendar/recurring/` |
+| Monthly | Move old `tasks/done/` → `archives/tasks/`, review all `projects/` status |
+| Quarterly | Review all `areas/`, confirm each has recent focus |
 
-## Workflow
+---
 
-### 1. Capture
-新東西一律進 `raw/captures/`。
-- 語音轉文字、隨手記、截圖 → `raw/captures/`
-- AI 寫的 email reply draft → `raw/emails/drafts/`
-- 從外部 ingest（網頁、書摘）→ `raw/external/`
+## Workflow — Knowledge-base mode
 
-原則：**capture 不分類，先丟再說**。
+#### 1. Ingest (the core operation)
 
-### 2. Triage
-定期（建議每天）把 `raw/captures/` 分流到 `tasks/`、`calendar/`、`projects/`、`areas/`。
-- 屬於任務 → `tasks/inbox/`（或直接放 `next/` / `waiting/` / `someday/`）
-- 屬於行事曆事件 → `calendar/synced/` 或 `calendar/daily/`
-- 屬於重複事件 → `calendar/recurring/`
-- 屬於專案 → `projects/<project>/tasks/`
-- 屬於持續責任 → `areas/<area>.md` 內新增段落
-- 純筆記 / 學習 → 歸 <companion vault> vault（不在本 vault）
+Read sources, write wiki pages, leave trace.
 
-分流時 frontmatter 補上 `source: raw/captures/<filename>`。
+1. **Drop source into `raw/`** — either `raw/<source-slug>.md` directly, or `raw/` root first then triage to `raw/external/`. Never edit after writing.
+2. **Write a summary** — `wiki/summaries/<source-slug>.md` (1-3 paragraphs capturing essence). One source → one summary (usually).
+3. **Extract entities** — `wiki/entities/<name>.md` for concrete things (persons, systems, tools). Update existing pages instead of duplicating.
+4. **Extract concepts** — `wiki/concepts/<concept-slug>.md` for abstract patterns / theories / definitions.
+5. **Write overview** (if a topic emerges) — `wiki/overviews/<topic>.md` ties multiple concepts together.
+6. **Write comparison** (if comparing things helps) — `wiki/comparisons/<comparison-slug>.md` (e.g. "water pump vs air pump").
+7. **Update `index.md`** — add new entries to the right section (Entities / Concepts / Comparisons / Summaries / Overviews / Lessons).
+8. **Append `log.md`** — `## [YYYY-MM-DD] ingest | <source-title>`
+9. **Leave capture trace** — `raw/captures/<date>-<slug>.md` pointing to all pages created from this source.
 
-### 3. Daily Brief
-每天打開 `daily/YYYY-MM-DD.md` 看 brief。
-- 模板用 [[templates/daily]]
-- 自動 Dataview 拉「今天要做的 task / 過期 task / 本週 deadline / 活躍 project / 今日事件」
+**Expect 10-15 wiki pages per source.** That is the point.
 
-### 4. Review
+#### 2. Query (also accumulates)
 
-| 頻率 | 動作 |
+When the user asks a question:
+
+1. Read `index.md` to locate relevant entries.
+2. Synthesize an answer.
+3. **Save the answer back to a wiki page** (usually `comparison` or `overview`) — so future queries compound.
+
+#### 3. Lint (every 1-2 weeks)
+
+Find and fix:
+
+- **Orphan pages** — pages with no incoming wikilinks
+- **Conflict candidates** — same entity with conflicting attributes across pages
+- **Superseded statements** — newer source contradicts older page
+- **Broken wikilinks** — links to non-existent pages
+
+Append `log.md`: `## [YYYY-MM-DD] lint | pass`
+
+#### 4. raw-only mode (lightweight variant)
+
+If you only want to capture sources without writing wiki pages: just write to `raw/`, skip the rest. The mode is what you do, not what the repo forces.
+
+---
+
+## Naming conventions
+
+| Item | Convention | Example |
+|---|---|---|
+| Folders, files | lowercase + dash | `engineering-mechanics-3/` |
+| Dates | ISO 8601 (`YYYY-MM-DD`) | `2026-10-02.md` |
+| Times in filenames | `HH-MM` (24h, dash not colon — colon breaks some filesystems) | `2026-10-02-09-30-meeting.md` |
+| Slugs | dash-separated keywords | `cs-team-meeting` |
+| Completed tasks archive | `wiki/tasks/done/YYYY-MM/` | `wiki/tasks/done/2026-10/...` |
+| KB lessons | prefix `LESSON: ` in title | `LESSON: wikilink path-vs-basename` |
+| raw/ root files (informal) | descriptive slug | `meeting-thoughts.md` |
+| raw/captures/ | `YYYY-MM-DD-<slug>.md` | `2026-10-02-think-pomodoro.md` |
+| raw/external/ | `<source-slug>.md` (date optional) | `fluid-mech-2026-09-30-handout.md` |
+| raw/emails/ | `YYYY-MM-DD-<subject-or-sender>.md` | `2026-10-02-reply-to-bill.md` |
+
+---
+
+## Frontmatter conventions
+
+#### Personal-OS mode
+
+| Type | Required fields | Template |
+|---|---|---|
+| task | `date`, `type: task`, optional `project:`, `area:` | `templates/task.md` |
+| project | `type: project`, `status:`, `area:` | `templates/project.md` |
+| area | `type: area`, `status:` | `templates/area.md` |
+| daily | `date`, `type: daily` | `templates/daily.md` |
+| capture | `date`, `type: capture`, `source:` | `templates/capture.md` |
+| event | `date`, `type: event`, `title`, `start`, `end` | `templates/event.md` |
+| recurring-event | `type: recurring-event`, `title`, `start-time`, `duration`, `days`, `start-date` | `templates/recurring-event.md` |
+
+#### Knowledge-base mode
+
+Every wiki page:
+
+```yaml
+---
+date: YYYY-MM-DD          # when this wiki page was written
+type: entity | concept | overview | comparison | summary | lesson
+tags: [tag1, tag2]
+status: active | superseded | archived
+sources: N               # how many raw/ sources back this page
+---
+```
+
+`type` is required so adopters can Dataview-query by type.
+
+---
+
+## Wikilink style
+
+- **Basename only**: `[[page-name]]` — never `[[wiki/summaries/foo]]`
+- **Cross-folder**: `[[folder/page|Display Text]]` (only when needed)
+- **Tasks ↔ projects/areas**: use frontmatter fields, not wikilinks (so Dataview can query)
+- **Graph View**: shows the network — let it surprise you
+
+If a wikilink target doesn't exist, it shows as broken (red). Lint pass should fix these.
+
+---
+
+## Commit convention
+
+```
+YYYY-MM-DD <type> | <description>
+```
+
+Common types:
+
+| Type | Use for |
 |---|---|
-| 每日 | 清 `tasks/inbox/`、寫 daily reflection |
-| 每週 | review `tasks/next/` 與 `tasks/waiting/`、確認 `calendar/recurring/` 正確 |
-| 每月 | 把舊 `tasks/done/` 移到 `archives/tasks/`，review 所有 `projects/` 狀態 |
-| 每季 | review `areas/`，確認每個 area 有近期重點 |
+| `docs` | Documentation, READMEs, AGENTS.md changes |
+| `init` | Initial commit / scaffold |
+| `schema` | Frontmatter or folder schema changes |
+| `task` | New task / task update |
+| `area` | New area / area update |
+| `project` | New project / project update |
+| `event` | Calendar event |
+| `ingest` | KB-mode: ingest new source (produces multiple wiki pages) |
+| `lint` | KB-mode: fix wikilinks / orphans / conflicts |
+| `comparison` | KB-mode: new comparison page |
+| `overview` | KB-mode: new overview page |
+| `lesson` | KB-mode: new lesson card |
+| `cleanup` | Delete / archive / reorganize |
+| `fix` | Bug fix, broken link, typo |
+| `restructure` | Folder restructure |
+| `plugins` | Plugin install / config / remove |
+| `dashboard` | Dashboard layout / Dataview query |
+| `sim` | Simulation run |
 
-## 命名規範
+Commit body (after the title) should explain *why*, not restate *what*. 2-5 lines.
 
-- 資料夾、檔名：**lowercase + dash**
-- 日期：**ISO 8601**（`YYYY-MM-DD`）
-- 時間用於 event 檔名：**`HH-MM`**（24h，用 dash 不用 colon，避免檔名系統衝突）
-- Slug：用 `-` 分隔關鍵字（例：`cs-team-meeting`）
-- 完成 task 歸檔：`tasks/done/YYYY-MM/`
+---
 
-## Frontmatter 規範
+## What's excluded (YOU provide)
 
-各檔案類型對應模板：
+These are intentionally not in the template — your vault needs its own:
 
-| 類型 | 必填欄位 | 模板 |
-|---|---|---|
-| task | `date`, `type` | [[templates/task]] |
-| project | `type`, `status`, `area` | [[templates/project]] |
-| area | `type`, `status` | [[templates/area]] |
-| daily | `date`, `type` | [[templates/daily]] |
-| capture | `date`, `type` | [[templates/capture]] |
-| event | `date`, `type`, `title`, `start`, `end` | [[templates/event]] |
-| recurring-event | `type`, `title`, `start-time`, `duration`, `days`, `start-date` | [[templates/recurring-event]] |
+- `wiki/daily/YYYY-MM-DD.md` — your daily notes
+- `wiki/tasks/next/*.md` — your active tasks
+- `wiki/areas/*.md` — your areas of responsibility
+- `wiki/projects/*/` — your projects
+- `raw/captures/*.md` — your source captures
+- `dashboard/` — your home dashboard (if any)
+- `.obsidian/workspace.json` — Obsidian window layout (per-machine)
+- `.obsidian/appearance.json` — your theme preferences
 
-詳細 schema 見各 [[templates/|Templates 資料夾]] 與各資料夾 README。
+The skeleton gives you **shape**, you give it **life**.
 
-## Wikilink 風格
+---
 
-- 處處用 `[[wikilinks]]`
-- 跨資料夾：`[[folder/page|顯示文字]]`
-- 同資料夾：`[[page-name]]`
-- task 連結 project / area **用 frontmatter 欄位**（不用 wikilink），方便 Dataview query
-- 用 Graph View 看整體關係
+## Adapting to your use
 
-## Areas vs Projects 判斷
+#### If forking for Personal-OS (Mode A):
 
-| | Project | Area |
-|---|---|---|
-| Deadline | 有 | 沒有 |
-| 完成條件 | 明確 | 持續責任 |
-| 結束動作 | 移 `archives/projects/` | 不結束，只 review |
-| 範例 | 搬家、論文、網站改版 | 健康、財務、職涯 |
+Default state. Just delete the TEMPLATE banner.
 
-## Email 整合
+#### If forking for Knowledge-base (Mode B):
 
-- 進：`raw/emails/inbox/`（未來）
-- AI 寫的 reply draft：`raw/emails/drafts/`
-- 標籤 / 優先序：透過 frontmatter `priority:`、`tags:` 欄位
-- 送出後：把對應 task 標 `status: sent`，歸 `tasks/done/YYYY-MM/`
+1. **Restructure `wiki/`** — delete `{tasks,calendar,projects,areas,daily,archives}/`, add `{entities,concepts,overviews,comparisons,summaries,lessons}/`
+2. **Update `templates/`** — keep `capture.md`, add `summary.md`, `entity.md`, `concept.md`, `overview.md`, `comparison.md`, `lesson.md`
+3. **Update AGENTS.md** — change § Workflow — Personal-OS to § Workflow — Knowledge-base
+4. **Update `index.md`** — keep Entities / Concepts / Overviews / Comparisons / Lessons, drop Tasks / Calendar / Projects / Areas / Daily
+5. **Add `type:` field** — see Frontmatter Knowledge-base above
 
-## 禁止
+#### If forking for Hybrid (Mode C):
 
-- ❌ 不要直接編輯 `raw/` 內的檔案
-- ❌ 不要略過 frontmatter
-- ❌ 不要混用大小寫命名
-- ❌ 不要把書摘、學習筆記、topic wiki 放這——歸 <companion vault> vault
-- ❌ 不要在 `projects/` 放無 deadline 的東西（那是 area）
+Fork the repo twice — one as Mode A, one as Mode B. Use wikilinks (e.g. `[[other-vault:concept-name]]`) to cross-reference between them.
+
+---
+
+## Provenance (capture trace)
+
+For every wiki page that came from a source, the trail should be:
+
+```
+raw/<source>.md  ──────┐
+                       │  produced these wiki pages:
+raw/captures/<date>-<slug>.md  (the "trace" — points to:)
+                       ↓
+              ┌────────┼────────┬────────┬────────┐
+              ↓        ↓        ↓        ↓        ↓
+         summary.md entity.md concept.md  ...    ...
+```
+
+The capture file in `raw/captures/` records which wiki pages were produced from which source. This is the source of truth for "where did this page come from?".
+
+---
+
+## Prohibited (across all modes)
+
+- ❌ Edit files inside `raw/` once written (append a new capture instead)
+- ❌ Skip frontmatter on any wiki page
+- ❌ Mix uppercase / lowercase / camelCase in filenames
+- ❌ Use `[[wiki/...]]` path-based wikilinks (use `[[basename]]`)
+- ❌ Skip `log.md` updates — append-only, never rewrite
+- ❌ Put book notes / study notes / topic wiki into a Personal-OS vault (they belong in a KB vault)
+- ❌ Add a `status:` field when Method B (folder location) already encodes it
+- ❌ Leave `raw/` root backlog unprocessed for long periods (defeats the uncategorized buffer purpose)
+
+---
+
+## License
+
+MIT License — Copyright © 2026 Gary Xie. See [LICENSE](LICENSE) for the full text.
