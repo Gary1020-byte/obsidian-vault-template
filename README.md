@@ -4,7 +4,7 @@
 
 Reusable Obsidian vault skeleton with a 3-layer architecture. Ships in **Personal-OS mode** (tasks, calendar, projects, areas, daily) but the same skeleton adapts to **knowledge-base mode** (entities, concepts, comparisons, summaries, overviews, lessons) — the [Karpathy LLM Wiki pattern](https://gist.github.com/karpathy/442a6bf555914893e9891c11519de94f).
 
-- **`raw/`** — immutable inbox, two sub-layers: root = uncategorized drop zone; subfolders = categorized (`captures/` required, `emails/` + `external/` opt-in). Never edit after writing.
+- **`raw/`** — immutable inbox, two sub-layers: root = uncategorized drop zone; subfolders = categorized (`captures/` + `external/` required, `emails/` opt-in). Never edit after writing.
 - **`wiki/`** — linked data network (the work surface; edited and re-edited)
 - **`meta`** — `AGENTS.md` + `index.md` + `log.md` (conventions + map + history)
 
@@ -52,9 +52,9 @@ On first launch, Obsidian will download plugin code from its registry (only `dat
 │   └── task.md
 ├── raw/                 ← immutable, two sub-layers
 │   ├── <root>           ← Layer 1: uncategorized drop zone (triage target)
-│   ├── captures/        ← Layer 2a: your time-stamped records (YYYY-MM-DD-*.md)
-│   ├── emails/          ← Layer 2b: email (inbound + outbound, including AI drafts) — OPT-IN
-│   └── external/        ← Layer 2c: third-party sources (web clips, papers, lecture notes) — OPT-IN
+│   ├── captures/        ← Layer 2a: your time-stamped records (YYYY-MM-DD-*.md) — REQUIRED
+│   ├── external/        ← Layer 2b: third-party sources (web clips, papers, lecture notes) — REQUIRED
+│   └── emails/          ← Layer 2c: email (inbound + outbound, including AI drafts) — OPT-IN
 └── wiki/                ← editable, source of work
     ├── tasks/           ← task state machine (Method B: location = status)
     │   ├── inbox/       ← untriaged captures from raw/captures/
