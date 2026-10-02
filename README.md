@@ -1,3 +1,5 @@
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+
 # Obsidian Vault Template
 
 Reusable Obsidian vault skeleton built on a 3-layer architecture:
@@ -107,4 +109,4 @@ This template ships with Personal-OS mode (tasks/calendar/projects/areas/daily).
 
 ## License
 
-MIT (or your choice).
+MIT License — Copyright © 2026 Gary Xie. See [LICENSE](LICENSE) for the full text.
