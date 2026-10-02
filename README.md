@@ -56,11 +56,12 @@ On first launch, Obsidian will download plugin code from its registry (only `dat
 │   ├── emails/          ← Layer 2b: email (inbound + outbound, including AI drafts)
 │   └── external/        ← Layer 2c: third-party sources (web clips, papers, lecture notes)
 └── wiki/                ← editable, source of work
-    ├── inbox/           ← untriaged captures from raw/captures/
-    ├── next/            ← active tasks
-    ├── waiting/         ← blocked-on tasks
-    ├── someday/         ← maybe-later tasks
-    ├── done/            ← completed tasks (archive)
+    ├── tasks/           ← task state machine (Method B: location = status)
+    │   ├── inbox/       ← untriaged captures from raw/captures/
+    │   ├── next/        ← active tasks
+    │   ├── waiting/     ← blocked-on tasks
+    │   ├── someday/     ← maybe-later tasks
+    │   └── done/        ← completed tasks (archive; archive >10/month → done/YYYY-MM/)
     ├── calendar/
     │   ├── daily/       ← per-day recurring event instances
     │   ├── recurring/   ← recurring event templates
@@ -69,7 +70,7 @@ On first launch, Obsidian will download plugin code from its registry (only `dat
     ├── areas/           ← ongoing responsibilities
     ├── daily/           ← daily notes (YYYY-MM-DD.md)
     └── archives/
-        ├── projects/    ← closed projects
+        ├── projects/     ← closed projects
         └── tasks/       ← old done tasks (moved out of done/)
 ```
 
