@@ -2,7 +2,7 @@
 
 # Obsidian Vault Template
 
-Reusable Obsidian vault skeleton built on a 3-layer architecture:
+Reusable Obsidian vault skeleton with a 3-layer architecture. Ships in **Personal-OS mode** (tasks, calendar, projects, areas, daily) but the same skeleton adapts to **knowledge-base mode** (entities, concepts, comparisons, summaries, overviews, lessons) — the [Karpathy LLM Wiki pattern](https://gist.github.com/karpathy/442a6bf555914893e9891c11519de94f).
 
 - **`raw/`** — immutable captures (never edit directly; ingest sources land here first)
 - **`wiki/`** — linked data network (the work surface; edited and re-edited)
@@ -99,13 +99,41 @@ Types: `docs`, `test`, `schema`, `init`, `dashboard`, `sim`, `plugins`, `task`, 
 - `dashboard/` — your home dashboard (if any)
 - `.obsidian/workspace.json` — Obsidian window layout (per-machine)
 
+## Reference: <companion vault> (knowledge-base mode in production)
+
+A concrete deployment of this template in **knowledge-base mode** is **<companion vault>**, a personal knowledge base following the Karpathy LLM Wiki pattern. It is the source vault for course notes, paper summaries, and concept pages.
+
+**<companion vault> at a glance:**
+
+| Metric | Value |
+|---|---|
+| Wiki pages | 366 (entities / concepts / overviews / comparisons / summaries) |
+| Source files (`raw/`) | 49 (lecture notes, paper PDFs, transcripts) |
+| Commits in `log.md` | 13 |
+| `AGENTS.md` | the 5-page-type ingest workflow |
+| Provenance | every wiki page traces back to a capture in `raw/captures/` |
+
+Use <companion vault> as a concrete example when adapting this template to knowledge-base mode.
+
 ## Adapting to a different mode
 
-This template ships with Personal-OS mode (tasks/calendar/projects/areas/daily). To repurpose for a **knowledge-base vault** (entities/concepts/comparisons/summaries/overviews):
+This template ships with **Personal-OS mode**. To repurpose for **knowledge-base mode** (LLM Wiki style):
 
-1. Replace `wiki/{tasks,calendar,projects,areas,daily,archives}/` with `wiki/{entities,concepts,comparisons,summaries,overviews}/`
-2. Update `AGENTS.md` with the 5-page-type ingest workflow
-4. In `raw/`, captures become the destination for `source-conversion.md` outputs (e.g. course transcript, book notes, paper drafts)
+1. **Restructure `wiki/`** — replace the Personal-OS folders with the 5 page-type folders:
+   ```
+   wiki/entities/      # concrete things: persons, projects, systems, tools
+   wiki/concepts/      # abstractions: theories, methods, principles
+   wiki/overviews/     # big-picture essays tying concepts together
+   wiki/comparisons/   # side-by-side analyses
+   wiki/summaries/     # 1 source in raw/ → 1 summary page
+   wiki/lessons/       # #LABEL cards: real pitfalls you tripped on
+   ```
+2. **Update `AGENTS.md`** with the 5-page-type ingest workflow (read sources → write entities/concepts/summaries + log entry + capture trace)
+3. **Update `templates/`** — replace `task.md` / `event.md` / `recurring-event.md` with `summary.md` / `entity.md` / `concept.md` / `overview.md` / `comparison.md` / `lesson.md`
+4. **Update `raw/` semantics** — captures become the destination for `source-conversion.md` outputs (course transcripts, book notes, paper drafts)
+5. **Add `type:` field** to frontmatter: `entity | concept | overview | comparison | summary | lesson`
+
+For a concrete reference implementation of knowledge-base mode, see **<companion vault>** (the section above).
 
 ## License
 
