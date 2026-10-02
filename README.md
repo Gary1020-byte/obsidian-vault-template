@@ -4,7 +4,7 @@
 
 Reusable Obsidian vault skeleton with a 3-layer architecture. Ships in **Personal-OS mode** (tasks, calendar, projects, areas, daily) but the same skeleton adapts to **knowledge-base mode** (entities, concepts, comparisons, summaries, overviews, lessons) — the [Karpathy LLM Wiki pattern](https://gist.github.com/karpathy/442a6bf555914893e9891c11519de94f).
 
-- **`raw/`** — immutable inbox, two sub-layers: root = uncategorized drop zone; subfolders = categorized. **Only `captures/` is created by default**; `emails/` and `external/` are opt-in (see Folder Structure below). Never edit after writing.
+- **`raw/`** — immutable inbox, two sub-layers: root = uncategorized drop zone; subfolders = categorized (`captures/` required, `emails/` + `external/` opt-in). Never edit after writing.
 - **`wiki/`** — linked data network (the work surface; edited and re-edited)
 - **`meta`** — `AGENTS.md` + `index.md` + `log.md` (conventions + map + history)
 
