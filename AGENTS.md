@@ -1,14 +1,14 @@
 <!--
 📦 TEMPLATE-NOTE
-This file is the operations manual for the vault-template repo. It supports
-two main use modes (Personal-OS and Knowledge-base) plus a hybrid variant.
+This file is the operations manual for the vault-template repo. It covers
+Personal-OS mode (tasks / calendar / projects / areas / daily) plus the
+shared architecture (3-layer model, Method B, raw/ two-layer, SOPs).
 
 When forking this repo for a new vault:
-1. Decide your mode (Personal-OS / Knowledge-base / Hybrid) — see top section
-2. Rename the wiki/ subfolders to match your mode
-3. Replace template names with your vault name in any prose
-4. Update the "What YOU provide" section to match what data you will keep
-5. Delete this banner block once adapted
+1. Rename the wiki/ subfolders to fit your taxonomy
+2. Replace template names with your vault name in any prose
+3. Update the "What YOU provide" section to match what data you will keep
+4. Delete this banner block once adapted
 -->
 
 ---
@@ -28,17 +28,9 @@ status: active
 
 This template ships with Personal-OS scaffolding but the same skeleton supports **three modes**. Choose based on what your vault is for:
 
-| Mode | Best for | `wiki/` subfolders | Example vault |
-|---|---|---|---|
-| **A. Personal-OS** (productivity) | GTD, calendar, areas, projects, daily notes | `tasks/{inbox,next,waiting,someday,done}/`, `calendar/{daily,recurring,synced}/`, `projects/`, `areas/`, `daily/`, `archives/{projects,tasks}/` | This repo's default |
-| **B. Knowledge-base** (LLM Wiki style) | Course notes, papers, book summaries, concepts | `entities/`, `concepts/`, `overviews/`, `comparisons/`, `summaries/`, `lessons/` | <companion vault> (see README "Reference" section) |
-| **C. Hybrid** | Both — personal vault + linked knowledge base | **A — plus** — symlink or git submodule to a sibling knowledge-base vault | Common: Personal-OS vault + <companion vault> vault side-by-side |
-
-**Choose now and continue to the matching Workflow section below:**
-
-- Mode A → [§ Workflow — Personal-OS](#workflow--personal-os-mode)
-- Mode B → [§ Workflow — Knowledge-base](#workflow--knowledge-base-mode)
-- Mode C → run two sibling repos (this template forked twice)
+| Mode | Best for | `wiki/` subfolders |
+|---|---|---|
+| **Personal-OS** (productivity) | GTD, calendar, areas, projects, daily notes | `tasks/{inbox,next,waiting,someday,done}/`, `calendar/{daily,recurring,synced}/`, `projects/`, `areas/`, `daily/`, `archives/{projects,tasks}/` |
 
 ---
 
@@ -116,9 +108,7 @@ To disable any opt-in folder: just delete it. No migration needed — the workfl
 | Calendar event (one-time) | `wiki/calendar/synced/` | end date `===` passes |
 | Calendar event (recurring instance) | `wiki/calendar/daily/` | end date passes |
 | Daily note | `wiki/daily/YYYY-MM-DD.md` | today's file exists |
-| **KB — Source** | `raw/<source>.md` (or root before triage) | stays there forever |
-| **KB — Summary** | `wiki/summaries/<source>.md` | superseded → `wiki/archives/summaries/` |
-| **KB — Lesson** | `wiki/lessons/<topic>.md` | rarely archive; superseded by newer lesson |
+
 
 ---
 
@@ -142,7 +132,7 @@ Daily (or as needed): move things from `raw/` root to their right home.
 - Is a calendar event? → `wiki/calendar/synced/` (one-time) or `wiki/calendar/recurring/` (recurring)
 - Is a project? → `wiki/projects/<project-slug>/`
 - Is an ongoing responsibility? → append to `wiki/areas/<area>.md`
-- Is study / book note / topic wiki? → **out of scope, push to <companion vault> vault**
+
 
 When triaging, add `source: raw/captures/<filename>` to frontmatter for provenance.
 
@@ -167,49 +157,6 @@ Open `wiki/daily/YYYY-MM-DD.md` each morning. Templater + Dataview auto-pull:
 
 ---
 
-## Workflow — Knowledge-base mode
-
-#### 1. Ingest (the core operation)
-
-Read sources, write wiki pages, leave trace.
-
-1. **Drop source into `raw/`** — either `raw/external/<source-slug>.md` (if that opt-in folder exists), or `raw/` root first then triage. Never edit after writing.
-2. **Write a summary** — `wiki/summaries/<source-slug>.md` (1-3 paragraphs capturing essence). One source → one summary (usually).
-3. **Extract entities** — `wiki/entities/<name>.md` for concrete things (persons, systems, tools). Update existing pages instead of duplicating.
-4. **Extract concepts** — `wiki/concepts/<concept-slug>.md` for abstract patterns / theories / definitions.
-5. **Write overview** (if a topic emerges) — `wiki/overviews/<topic>.md` ties multiple concepts together.
-6. **Write comparison** (if comparing things helps) — `wiki/comparisons/<comparison-slug>.md` (e.g. "water pump vs air pump").
-7. **Update `index.md`** — add new entries to the right section (Entities / Concepts / Comparisons / Summaries / Overviews / Lessons).
-8. **Append `log.md`** — `## [YYYY-MM-DD] ingest | <source-title>`
-9. **Leave capture trace** — `raw/captures/<date>-<slug>.md` pointing to all pages created from this source.
-
-**Expect 10-15 wiki pages per source.** That is the point.
-
-#### 2. Query (also accumulates)
-
-When the user asks a question:
-
-1. Read `index.md` to locate relevant entries.
-2. Synthesize an answer.
-3. **Save the answer back to a wiki page** (usually `comparison` or `overview`) — so future queries compound.
-
-#### 3. Lint (every 1-2 weeks)
-
-Find and fix:
-
-- **Orphan pages** — pages with no incoming wikilinks
-- **Conflict candidates** — same entity with conflicting attributes across pages
-- **Superseded statements** — newer source contradicts older page
-- **Broken wikilinks** — links to non-existent pages
-
-Append `log.md`: `## [YYYY-MM-DD] lint | pass`
-
-#### 4. raw-only mode (lightweight variant)
-
-If you only want to capture sources without writing wiki pages: just write to `raw/`, skip the rest. The mode is what you do, not what the repo forces.
-
----
-
 ## Naming conventions
 
 | Item | Convention | Example |
@@ -219,7 +166,7 @@ If you only want to capture sources without writing wiki pages: just write to `r
 | Times in filenames | `HH-MM` (24h, dash not colon — colon breaks some filesystems) | `2026-10-02-09-30-meeting.md` |
 | Slugs | dash-separated keywords | `cs-team-meeting` |
 | Completed tasks archive | `wiki/tasks/done/YYYY-MM/` | `wiki/tasks/done/2026-10/...` |
-| KB lessons | prefix `LESSON: ` in title | `LESSON: wikilink path-vs-basename` |
+
 | raw/ root files (informal) | descriptive slug | `meeting-thoughts.md` |
 | `raw/captures/` | `YYYY-MM-DD-<slug>.md` | `2026-10-02-think-pomodoro.md` |
 | `raw/external/` | `<source-slug>.md` (date optional) | `fluid-mech-2026-09-30-handout.md` |
@@ -240,22 +187,6 @@ If you only want to capture sources without writing wiki pages: just write to `r
 | capture | `date`, `type: capture`, `source:` | `templates/capture.md` |
 | event | `date`, `type: event`, `title`, `start`, `end` | `templates/event.md` |
 | recurring-event | `type: recurring-event`, `title`, `start-time`, `duration`, `days`, `start-date` | `templates/recurring-event.md` |
-
-#### Knowledge-base mode
-
-Every wiki page:
-
-```yaml
----
-date: YYYY-MM-DD          # when this wiki page was written
-type: entity | concept | overview | comparison | summary | lesson
-tags: [tag1, tag2]
-status: active | superseded | archived
-sources: N               # how many raw/ sources back this page
----
-```
-
-`type` is required so adopters can Dataview-query by type.
 
 ---
 
@@ -287,12 +218,7 @@ Common types:
 | `area` | New area / area update |
 | `project` | New project / project update |
 | `event` | Calendar event |
-| `ingest` | KB-mode: ingest new source (produces multiple wiki pages) |
-| `lint` | KB-mode: fix wikilinks / orphans / conflicts |
-| `comparison` | KB-mode: new comparison page |
-| `overview` | KB-mode: new overview page |
-| `lesson` | KB-mode: new lesson card |
-| `cleanup` | Delete / archive / reorganize |
+`cleanup` | Delete / archive / reorganize |
 | `fix` | Bug fix, broken link, typo |
 | `restructure` | Folder restructure |
 | `plugins` | Plugin install / config / remove |
@@ -326,14 +252,6 @@ The skeleton gives you **shape**, you give it **life**.
 
 Default state. Just delete the TEMPLATE banner.
 
-#### If forking for Knowledge-base (Mode B):
-
-1. **Restructure `wiki/`** — delete `{tasks,calendar,projects,areas,daily,archives}/`, add `{entities,concepts,overviews,comparisons,summaries,lessons}/`
-2. **Update `templates/`** — keep `capture.md`, add `summary.md`, `entity.md`, `concept.md`, `overview.md`, `comparison.md`, `lesson.md`
-3. **Update AGENTS.md** — change § Workflow — Personal-OS to § Workflow — Knowledge-base
-4. **Update `index.md`** — keep Entities / Concepts / Overviews / Comparisons / Lessons, drop Tasks / Calendar / Projects / Areas / Daily
-5. **Add `type:` field** — see Frontmatter Knowledge-base above
-
 #### If forking for Hybrid (Mode C):
 
 Fork the repo twice — one as Mode A, one as Mode B. Use wikilinks (e.g. `[[other-vault:concept-name]]`) to cross-reference between them.
@@ -365,7 +283,7 @@ The capture file in `raw/captures/` records which wiki pages were produced from 
 - ❌ Mix uppercase / lowercase / camelCase in filenames
 - ❌ Use `[[wiki/...]]` path-based wikilinks (use `[[basename]]`)
 - ❌ Skip `log.md` updates — append-only, never rewrite
-- ❌ Put book notes / study notes / topic wiki into a Personal-OS vault (they belong in a KB vault)
+- ❌ Put book notes / study notes / topic wiki into this vault — knowledge work is not in Personal-OS scope
 - ❌ Add a `status:` field when Method B (folder location) already encodes it
 - ❌ Leave `raw/` root backlog unprocessed for long periods (defeats the uncategorized buffer purpose)
 
