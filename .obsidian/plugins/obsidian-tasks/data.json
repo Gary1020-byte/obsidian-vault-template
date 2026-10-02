@@ -1,0 +1,34 @@
+{
+  "taskFormat": {
+    "dueDateFormat": "YYYY-MM-DD",
+    "plannedDateFormat": "YYYY-MM-DD",
+    "scheduledDateFormat": "YYYY-MM-DD",
+    "priorityLevels": [
+      "high",
+      "medium",
+      "low",
+      "none"
+    ],
+    "taskCompletionDateFormat": "YYYY-MM-DD",
+    "createdDateFormat": "YYYY-MM-DD",
+    "doneDateFormat": "YYYY-MM-DD",
+    "cancelledDateFormat": "YYYY-MM-DD",
+    "recurrenceFormats": []
+  },
+  "generalSettings": {
+    "useFilenameAsScheduledDate": false,
+    "filenameAsDateFormats": [],
+    "setCreatedDate": true,
+    "setDoneDate": true,
+    "setCancelledDate": true,
+    "autoSuggestPriority": true,
+    "autoSuggestSubprojects": true,
+    "provideAccessKeys": true,
+    "useCustomDateDefaults": false
+  },
+  "experimentalFeatures": {
+    "defaultUserHasFrontmatter": false,
+    "experimentalParser": false,
+    "_taskListFmtPluginBug": false
+  }
+}
