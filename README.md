@@ -1,8 +1,7 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 # Obsidian Vault Template
-
-Reusable Obsidian notes skeleton with a 3-layer architecture. Ships in **the shipped mode** (tasks, calendar, projects, areas, daily) but the same skeleton adapts to **knowledge-base mode** (entities, concepts, comparisons, summaries, overviews, lessons) — the [Karpathy LLM Wiki pattern](https://gist.github.com/karpathy/442a6bf555914893e9891c11519de94f).
+Reusable Obsidian notes skeleton for the task system: tasks, calendar, projects, areas, and daily notes - built on a 3-layer architecture (raw/ -> wiki/ -> archive/) with method-based status (Method B: folder location = status).
 
 - **`raw/`** — immutable inbox, two sub-layers: root = uncategorized drop zone; subfolders = categorized (`captures/` + `external/` required, `emails/` opt-in). Never edit after writing.
 - **`wiki/`** — linked data network (the work surface; edited and re-edited)
@@ -100,42 +99,21 @@ Types: `docs`, `test`, `schema`, `init`, `dashboard`, `sim`, `plugins`, `task`, 
 - `dashboard/` — your home dashboard (if any)
 - `.obsidian/workspace.json` — Obsidian window layout (per-machine)
 
-## Reference: <companion notes> (knowledge-base mode in production)
+## Adapting this template
 
-A concrete deployment of this template in **knowledge-base mode** is **<companion notes>**, a personal knowledge base following the Karpathy LLM Wiki pattern. It is the source notes for course notes, paper summaries, and concept pages.
+Fork / clone freely. When forking:
 
-**<companion notes> at a glance:**
+1. Update notes name in prose
+2. Add your first task via Ctrl+P -> QuickAdd -> Task
+3. Open wiki/daily/today.md
 
-| Metric | Value |
-|---|---|
-| Wiki pages | 366 (entities / concepts / overviews / comparisons / summaries) |
-| Source files (`raw/`) | 49 (lecture notes, paper PDFs, transcripts) |
-| Commits in `log.md` | 13 |
-| `AGENTS.md` | the 5-page-type ingest workflow |
-| Provenance | every wiki page traces back to a capture in `raw/captures/` |
+## Related project: <companion notes>
 
-Use <companion notes> as a concrete example when adapting this template to knowledge-base mode.
+A separate companion notes (<companion notes>/) uses the same skeleton adapted for knowledge-base work
+(entities, concepts, comparisons, summaries, lessons) -
+following the Karpathy LLM Wiki pattern.
+the task system isfor doing; <companion notes> is for learning.
 
-## Adapting to a different mode
-
-This template ships with **the shipped mode**. To repurpose for **knowledge-base mode** (LLM Wiki style):
-
-1. **Restructure `wiki/`** — replace the the task system folders with the 5 page-type folders:
-   ```
-   wiki/entities/      # concrete things: persons, projects, systems, tools
-   wiki/concepts/      # abstractions: theories, methods, principles
-   wiki/overviews/     # big-picture essays tying concepts together
-   wiki/comparisons/   # side-by-side analyses
-   wiki/summaries/     # 1 source in raw/ → 1 summary page
-   wiki/lessons/       # #LABEL cards: real pitfalls you tripped on
-   ```
-2. **Update `AGENTS.md`** with the 5-page-type ingest workflow (read sources → write entities/concepts/summaries + log entry + capture trace)
-3. **Update `templates/`** — replace `task.md` / `event.md` / `recurring-event.md` with `summary.md` / `entity.md` / `concept.md` / `overview.md` / `comparison.md` / `lesson.md`
-4. **Update `raw/` semantics** — `raw/captures/` and `captures/` are required by default; `raw/emails/` is opt-in (create only if your workflow needs email handling).
-5. **Add `type:` field** to frontmatter: `entity | concept | overview | comparison | summary | lesson`
-
-For a concrete reference implementation of knowledge-base mode, see **<companion notes>** (the section above).
 
 ## License
-
 MIT License — Copyright © 2026 Gary Xie. See [LICENSE](LICENSE) for the full text.
