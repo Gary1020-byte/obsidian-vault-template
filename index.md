@@ -2,55 +2,7 @@
 
 Wikilinks only — never describe content here. Each entry links to a page that lives somewhere in `wiki/` (or `raw/` for sources).
 
-The 5 page categories (Knowledge-base mode) and the Personal-OS sections (Tasks / Calendar / Projects / Areas / Daily) are kept separate. Pick the sections that fit your workflow.
-
----
-
-## Entities
-
-(Specific things: persons, projects, systems, tools, organizations.)
-
-- *(add entries here as `[[page-name]] — short note`)*
-
----
-
-## Concepts
-
-(General topics, theories, methods, abstractions, definitions.)
-
-- *(add entries here as `[[page-name]] — short note`)*
-
----
-
-## Overviews
-
-(Big-picture summaries tying multiple concepts together.)
-
-- *(add entries here)*
-
----
-
-## Comparisons
-
-(Side-by-side analyses of two or more things.)
-
-- *(add entries here)*
-
----
-
-## Summaries
-
-(Condensed versions of long sources.)
-
-- *(add entries here)*
-
----
-
-## Lessons
-
-(Durable pitfalls / #LABEL cards. Write only what you actually tripped on.)
-
-- *(add entries here)*
+This vault is Personal-OS mode only: tasks, calendar, projects, areas, daily notes. Knowledge work lives in a separate project, not here.
 
 ---
 
