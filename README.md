@@ -107,13 +107,5 @@ Fork / clone freely. When forking:
 2. Add your first task via Ctrl+P -> QuickAdd -> Task
 3. Open wiki/daily/today.md
 
-## Related project: <companion vault>
-
-A separate companion vault (<companion vault>/) uses the same skeleton adapted for knowledge-base work
-(entities, concepts, comparisons, summaries, lessons) -
-following the Karpathy LLM Wiki pattern.
-Personal-OS is for doing; <companion vault> is for learning.
-
-
 ## License
 MIT License — Copyright © 2026 Gary Xie. See [LICENSE](LICENSE) for the full text.
