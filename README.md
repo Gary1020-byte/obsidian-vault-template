@@ -19,7 +19,7 @@ Reusable Obsidian notes skeleton for the task system: tasks, calendar, projects,
 ## Quick Start
 
 ```bash
-git clone <this-repo> ~/my-notes
+git clone https://github.com/Gary1020-byte/obsidian-notes-template.git ~/my-notes
 cd ~/my-notes
 # In Obsidian: "Open folder as notes" → pick ~/my-notes
 # Reload Obsidian to activate community plugins
