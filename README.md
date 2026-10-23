@@ -19,7 +19,7 @@ Reusable Obsidian vault skeleton for Personal-OS: tasks, calendar, projects, are
 ## Quick Start
 
 ```bash
-git clone <this-repo> ~/my-vault
+git clone https://github.com/Gary1020-byte/obsidian-vault-template.git ~/my-vault
 cd ~/my-vault
 # In Obsidian: "Open folder as vault" → pick ~/my-vault
 # Reload Obsidian to activate community plugins
