@@ -1,0 +1,58 @@
+name: Bug report
+description: Something doesn't work
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for the report. Please don't paste credentials, tokens, or a
+        private path from your own machine into this form — this template
+        ships an empty skeleton, so most problems are about structure rather
+        than data.
+
+  - type: textarea
+    id: what-happened
+    attributes:
+      label: What happened
+      description: What did you see?
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected
+    attributes:
+      label: What you expected
+    validations:
+      required: true
+
+  - type: input
+    id: obsidian-version
+    attributes:
+      label: Obsidian version
+      placeholder: "1.8.7"
+    validations:
+      required: true
+
+  - type: input
+    id: os
+    attributes:
+      label: OS
+      placeholder: "Ubuntu 24.04"
+
+  - type: textarea
+    id: check-output
+    attributes:
+      label: Output of the consistency check
+      description: Run `python3 check_template.py` in your clone and paste the result.
+      render: shell
+    validations:
+      required: true
+
+  - type: textarea
+    id: tree
+    attributes:
+      label: Your `wiki/` and `raw/` folder listing
+      description: |
+        Paste the output of `find wiki raw -type d | sort`. It shows the
+        structure without any note content.
+      render: shell

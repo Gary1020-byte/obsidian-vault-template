@@ -1,0 +1,40 @@
+name: Feature request
+description: Suggest an improvement to the template
+labels: ["enhancement"]
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: What problem does this solve?
+      description: Describe the situation, not the solution.
+    validations:
+      required: true
+
+  - type: textarea
+    id: proposal
+    attributes:
+      label: What you'd like instead
+    validations:
+      required: true
+
+  - type: dropdown
+    id: area
+    attributes:
+      label: Which part of the template?
+      options:
+        - Folder structure
+        - Templates
+        - Plugin configuration
+        - AGENTS.md / documentation
+        - CI / tooling
+        - Something else
+    validations:
+      required: true
+
+  - type: textarea
+    id: compatibility
+    attributes:
+      label: Would this break existing forks?
+      description: |
+        This template is forked by people. If your change renames a folder or
+        changes a frontmatter field, say so — that needs a migration note.
