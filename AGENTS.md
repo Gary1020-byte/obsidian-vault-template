@@ -1,7 +1,7 @@
 <!--
 📦 TEMPLATE-NOTE
 This file is the operations manual for the notes-template repo. It covers
-the shipped mode (tasks / calendar / projects / areas / daily) plus the
+Productivity mode (tasks / calendar / projects / areas / daily) plus the
 shared architecture (3-layer model, Method B, raw/ two-layer, SOPs).
 
 When forking this repo for a new notes:
@@ -26,11 +26,13 @@ status: active
 
 ## Pick your mode (do this first)
 
-This template ships with the shipped scaffolding but the same skeleton supports **three modes**. Choose based on what your notes is for:
+This template ships in **Productivity mode**. The same 3-layer skeleton also works for a
+knowledge notes (see § Adapting this template).
 
 | Mode | Best for | `wiki/` subfolders |
 |---|---|---|
-| **the task system** (productivity) | GTD, calendar, areas, projects, daily notes | `tasks/{inbox,next,waiting,someday,done}/`, `calendar/{daily,recurring,synced}/`, `projects/`, `areas/`, `daily/`, `archives/{projects,tasks}/` |
+| **Productivity** (default) | GTD, calendar, areas, projects, daily notes | `tasks/{inbox,next,waiting,someday,done}/`, `calendar/{daily,recurring,synced}/`, `projects/`, `areas/`, `daily/`, `archives/{projects,tasks}/` |
+| **Knowledge** | Concept pages, entities, comparisons, summaries | `concepts/`, `entities/`, `comparisons/`, `summaries/`, `overviews/` — replace the `tasks/` + `calendar/` trees with these |
 
 ---
 
@@ -112,7 +114,7 @@ To disable any opt-in folder: just delete it. No migration needed — the workfl
 
 ---
 
-## Workflow — the shipped mode
+## Workflow — Productivity mode
 
 #### 1. Capture
 
@@ -176,7 +178,7 @@ Open `wiki/daily/YYYY-MM-DD.md` each morning. Templater + Dataview auto-pull:
 
 ## Frontmatter conventions
 
-#### the shipped mode
+#### Productivity mode
 
 | Type | Required fields | Template |
 |---|---|---|
@@ -218,7 +220,7 @@ Common types:
 | `area` | New area / area update |
 | `project` | New project / project update |
 | `event` | Calendar event |
-`cleanup` | Delete / archive / reorganize |
+| `cleanup` | Delete / archive / reorganize |
 | `fix` | Bug fix, broken link, typo |
 | `restructure` | Folder restructure |
 | `plugins` | Plugin install / config / remove |
@@ -248,13 +250,20 @@ The skeleton gives you **shape**, you give it **life**.
 
 ## Adapting to your use
 
-#### If forking for Productivity (Mode A):
+#### If forking for Productivity mode (default):
 
-Default state. Just delete the TEMPLATE banner.
+Delete the TEMPLATE banner and start adding tasks.
 
-#### If forking for Hybrid (Mode C):
+#### If forking for Knowledge mode:
 
-Fork the repo twice — one as Mode A, one as Mode B. Use wikilinks (e.g. `[[other-notes:concept-name]]`) to cross-reference between them.
+Replace the `wiki/tasks/`, `wiki/calendar/` and `wiki/areas/` trees with the knowledge
+folders, and swap the Task/Event/Area frontmatter rows in § Frontmatter conventions for
+Concept/Entity rows. The `raw/` layer and the 3-layer model do not change.
+
+#### If you need both:
+
+Fork the repo twice — one per mode — and cross-reference with wikilinks
+(e.g. `[[other-notes:concept-name]]`).
 
 ---
 
@@ -283,7 +292,7 @@ The capture file in `raw/captures/` records which wiki pages were produced from 
 - ❌ Mix uppercase / lowercase / camelCase in filenames
 - ❌ Use `[[wiki/...]]` path-based wikilinks (use `[[basename]]`)
 - ❌ Skip `log.md` updates — append-only, never rewrite
-- ❌ Put book notes / study notes / topic wiki into this notes — knowledge work is not in productivity scope
+- ❌ Put book notes / study notes / topic wiki into a Productivity-mode notes — knowledge work belongs in a Knowledge-mode fork
 - ❌ Add a `status:` field when Method B (folder location) already encodes it
 - ❌ Leave `raw/` root backlog unprocessed for long periods (defeats the uncategorized buffer purpose)
 

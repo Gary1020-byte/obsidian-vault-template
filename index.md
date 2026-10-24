@@ -2,7 +2,7 @@
 
 Wikilinks only — never describe content here. Each entry links to a page that lives somewhere in `wiki/` (or `raw/` for sources).
 
-This notes is productivity mode only: tasks, calendar, projects, areas, daily notes. Knowledge work lives in a separate project, not here.
+This notes is in Productivity mode: tasks, calendar, projects, areas, daily notes. A knowledge-mode fork replaces these trees with concept and entity pages.
 
 ---
 

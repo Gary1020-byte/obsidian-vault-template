@@ -1,7 +1,7 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 # Obsidian Vault Template
-Reusable Obsidian notes skeleton for the task system: tasks, calendar, projects, areas, and daily notes - built on a 3-layer architecture (raw/ -> wiki/ -> archive/) with method-based status (Method B: folder location = status).
+Reusable Obsidian notes skeleton for task and knowledge tracking: tasks, calendar, projects, areas, and daily notes - built on a 3-layer architecture (raw/ -> wiki/ -> archive/) with method-based status (Method B: folder location = status).
 
 - **`raw/`** — immutable inbox, two sub-layers: root = uncategorized drop zone; subfolders = categorized (`captures/` + `external/` required, `emails/` opt-in). Never edit after writing.
 - **`wiki/`** — linked data network (the work surface; edited and re-edited)
@@ -9,7 +9,7 @@ Reusable Obsidian notes skeleton for the task system: tasks, calendar, projects,
 
 ## Features
 
-- **5 community plugins pre-configured**: Templater, Dataview, obsidian-tasks, QuickAdd, Calendar (liamcain)
+- **5 community plugins pre-configured**: Templater, Dataview, obsidian-tasks, QuickAdd, Calendar
 - **7 templates** (in `templates/`): `area`, `capture`, `daily`, `event`, `project`, `recurring-event`, `task`
 - **Folder skeleton** for tasks / calendar / projects / areas / daily / archives
 - **Method B** rule: *location = status* (no `status:` field needed — folder placement says done/waiting/inbox/...)
@@ -98,6 +98,21 @@ Types: `docs`, `test`, `schema`, `init`, `dashboard`, `sim`, `plugins`, `task`, 
 - `raw/captures/*.md` — your source captures
 - `dashboard/` — your home dashboard (if any)
 - `.obsidian/workspace.json` — Obsidian window layout (per-machine)
+
+## Development
+
+The repo carries a consistency checker:
+
+```bash
+python3 check_template.py
+```
+
+It checks that every folder the docs name exists, every QuickAdd macro points at a
+real folder and template, the plugin list matches the committed plugin configs, the
+markdown tables are well-formed, every file ends with a newline, and nothing from
+the author's private system leaked in. CI runs the same check on every push.
+
+See [CONTRIBUTING.md](CONTRIBUTING.md) for the rules a change has to follow.
 
 ## Adapting this template
 

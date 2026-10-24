@@ -1,0 +1,59 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  # The gate. Branch protection requires a check named exactly "test".
+  test:
+    name: test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Check the template is internally consistent
+        # Verifies that every folder the docs promise exists, every QuickAdd
+        # macro points at a real folder and template, the plugin list matches
+        # the committed plugin configs, the markdown tables are well-formed,
+        # and no string from the author's private system survived.
+        run: python3 check_template.py
+
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Byte-compile the checker
+        run: python3 -m compileall -q check_template.py
+
+      - name: Every JSON config parses
+        run: |
+          python3 -c "
+          import json, pathlib, sys
+          bad = []
+          for p in pathlib.Path('.').rglob('*.json'):
+              if '.git' in p.parts:
+                  continue
+              try:
+                  json.loads(p.read_text())
+              except Exception as e:
+                  bad.append(f'{p}: {e}')
+          if bad:
+              print('\n'.join(bad))
+              sys.exit(1)
+          print('all JSON parses')
+          "

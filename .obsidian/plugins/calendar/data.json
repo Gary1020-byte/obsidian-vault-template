@@ -1,0 +1,21 @@
+{
+  "calendars": [],
+  "calendarViewSettings": {
+    "showWeekNumber": false,
+    "showSecondaryWeekNumber": false,
+    "showWeekRelative": false,
+    "showCurrentWeek": true,
+    "view": "month",
+    "refreshInterval": 300
+  },
+  "defaultView": "month",
+  "enableMobileGesture": true,
+  "weekFormat": "yyyy-MM-dd",
+  "dateFormat": "yyyy-MM-dd",
+  "advancedLocale": false,
+  "showToday": true,
+  "showWeekDay": false,
+  "enableEventDragging": true,
+  "enableClickOrScroll": true,
+  "disableEventDragging": false
+}
