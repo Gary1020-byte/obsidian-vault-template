@@ -128,12 +128,12 @@ scanned = 0
 for f in tracked:
     if not f.endswith((".md", ".json", ".toml", ".yml", ".yaml", ".txt")):
         continue
-    # log.md is an append-only history of the vault. It legitimately records
-    # what was changed away from — a rename entry has to name the old name.
-    # It is still checked for a home path, an IP, or a hostname.
+    # log.md and CHANGELOG.md are append-only histories. They legitimately
+    # record what was changed away from — a rename entry has to name the old
+    # name. They are still checked for a home path, an IP, or a hostname.
     body = open(os.path.join(ROOT, f), encoding="utf-8", errors="replace").read()
     names = [b for b in FORBIDDEN if b in body]
-    if f == "log.md":
+    if f in ("log.md", "CHANGELOG.md"):
         names = [b for b in names if b in ("/home/gary", ".ts.net", "140.112.244.110")]
     for bad in names:
         fail(f"{f} contains '{bad}'")
