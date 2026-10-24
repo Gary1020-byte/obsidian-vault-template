@@ -28,10 +28,9 @@ checked.
 
 ### Fixed
 
-- The shipped mode was called `Productivity`, which is the name of the author's
-  own notes, and the docs promised "three modes" while listing one. The mode is
-  now `Productivity`, and the `Knowledge` mode the docs already referred to is
-  spelled out.
+- The shipped mode was named after the author's own notes, and the docs
+  promised "three modes" while listing one. The mode is now `Productivity`,
+  and the `Knowledge` mode the docs already referred to is spelled out.
 - One table row in `AGENTS.md` was missing its leading pipe and rendered broken.
 - Seven files had no trailing newline.
 - `log.md`'s init entry claimed four plugin configs and a `raw/emails/` +

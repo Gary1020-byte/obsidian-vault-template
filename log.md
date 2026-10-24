@@ -50,10 +50,10 @@ Reusable Obsidian notes skeleton. Adapt the wiki/ folder layout to match your wo
 
 ## [2026-10-24] fix | make the template internally consistent
 
-- Rename the `Productivity` mode to `Productivity` and add the `Knowledge` mode row
-  the docs already promised — the template is forked by strangers, and one of
-  them was named in it
-- Drop `the sync plugin` from `community-plugins.json`: it was in the list but had
+- Rename the shipped mode to `Productivity` and add the `Knowledge` mode row
+  the docs already promised — the template is forked by strangers, and the
+  old mode name was the author's own
+- Drop a plugin from `community-plugins.json`: it was in the list but had
   no committed config, so Obsidian would enable a plugin the template never set up
 - Add the missing `calendar/data.json` so all 5 advertised plugins are configured
 - Fix a broken table row in AGENTS.md (the `cleanup` row was missing its leading pipe)
