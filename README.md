@@ -122,5 +122,9 @@ Fork / clone freely. When forking:
 2. Add your first task via Ctrl+P -> QuickAdd -> Task
 3. Open wiki/daily/today.md
 
+## Changelog
+
+See [CHANGELOG.md](CHANGELOG.md) for what changed and when.
+
 ## License
 MIT License — Copyright © 2026 Gary Xie. See [LICENSE](LICENSE) for the full text.
