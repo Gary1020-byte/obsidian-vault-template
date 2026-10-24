@@ -14,7 +14,9 @@ Read-only.
 """
 import json, os, re, subprocess, sys
 
-ROOT = "/home/gary/services/vault-template"
+# The repo root, derived from this file so the check runs wherever the
+# repo is checked out — CI, a fork, or a local clone.
+ROOT = os.path.dirname(os.path.abspath(__file__))
 FORBIDDEN = ["Personal-OS", "LLM-Wiki", "fast-note-sync", "shared-vault",
              "/home/gary", ".ts.net", "140.112.244.110"]
 
@@ -121,6 +123,7 @@ print()
 print("=== 6. no private-system strings ===")
 tracked = subprocess.run(["git", "-C", ROOT, "ls-files"],
                           capture_output=True, text=True).stdout.split()
+tracked = [f for f in tracked if f]
 scanned = 0
 for f in tracked:
     if not f.endswith((".md", ".json", ".toml", ".yml", ".yaml", ".txt")):
